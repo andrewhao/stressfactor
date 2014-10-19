@@ -1,5 +1,11 @@
 # Stressfactor
 
+[![Build
+Status](https://travis-ci.org/andrewhao/stressfactor.svg)](https://travis-ci.org/andrewhao/stressfactor)
+[![Code
+Climate](https://codeclimate.com/github/andrewhao/stressfactor/badges/gpa.svg)](https://codeclimate.com/github/andrewhao/stressfactor)
+
+
 Calculate workout intensity based on heart rate. Exploratory coding of
 the Training Stress Score as detailed here:
 
