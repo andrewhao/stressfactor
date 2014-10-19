@@ -2,16 +2,14 @@ require "ostruct"
 
 module Stressfactor
   class PaceCalculator
-
     attr_accessor :gpx
+
     def initialize(gpx)
       @gpx = gpx
     end
 
     def calculate
       paces.inject(0) do |acc, pace|
-        puts "total_distance: #{total_distance}"
-        puts "pace: #{pace}"
         weighted_pace = (pace.distance / total_distance) * (pace.time / pace.distance)
         acc + weighted_pace
       end
@@ -37,9 +35,7 @@ module Stressfactor
           d1 = p1.haversine_distance_from(p2)
           t1 = (p2.time - p1.time) / 60.0
 
-          os = OpenStruct.new(:time => t1, :distance => d1)
-          puts os
-          os
+          OpenStruct.new(:time => t1, :distance => d1)
         else
           nil
         end
