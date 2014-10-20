@@ -8,39 +8,39 @@ module Stressfactor
       @gpx = gpx
     end
 
-    def calculate
-      paces.inject(0) do |acc, pace|
-        weighted_pace = (pace.distance / total_distance) * (pace.time / pace.distance)
-        acc + weighted_pace
-      end
+    def calculate(strategy=:raw)
+      RawPaceStrategy.new(point_intervals, total_distance(point_intervals)).calculate
     end
 
     private
 
+
     # Total elapsed time in minutes
-    def total_distance
-      @total_distance ||= paces.inject(0) do |acc, pace|
-        acc + pace.distance
+    def total_distance(intervals)
+      @total_distance ||= intervals.inject(0) do |acc, interval|
+        acc + interval.distance
       end
     end
 
     # An array of instantaneous pace times in min/km from comparing
     # two trackpoints
-    def paces
-      paces = points.map do |p1|
-        idx = points.index(p1)
-        p2 = points[idx+1]
+    def point_intervals
+      @point_intervals ||= begin
+        points.map do |p1|
+          idx = points.index(p1)
+          p2 = points[idx+1]
 
-        if p2
-          d1 = p1.haversine_distance_from(p2)
-          t1 = (p2.time - p1.time) / 60.0
+          if p2
+            d1 = p1.haversine_distance_from(p2)
+            t1 = (p2.time - p1.time) / 60.0
 
-          OpenStruct.new(:time => t1, :distance => d1)
-        else
-          nil
+            OpenStruct.new(:time => t1, :distance => d1)
+          else
+            nil
+          end
         end
       end
-      paces.compact
+      @point_intervals.compact
     end
 
     # An array of GPX::TrackPoint objects.
