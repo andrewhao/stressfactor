@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require "thor"
+require_relative '../lib/stressfactor'
+
+class CLI < Thor
+  desc "analyze PATH", "Run analysis on a GPX."
+  def analyze(path)
+    file = GPX::GPXFile.new(:gpx_file => path)
+    pc = Stressfactor::PaceCalculator.new(file)
+    puts pc.calculate
+  end
+end
+
+CLI.start(ARGV)
