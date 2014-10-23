@@ -9,18 +9,10 @@ module Stressfactor
     end
 
     def calculate(strategy=:raw)
-      RawPaceStrategy.new(point_intervals, total_distance(point_intervals)).calculate
+      RawPaceStrategy.new(point_intervals).calculate
     end
 
     private
-
-
-    # Total elapsed time in minutes
-    def total_distance(intervals)
-      @total_distance ||= intervals.inject(0) do |acc, interval|
-        acc + interval.distance
-      end
-    end
 
     # An array of instantaneous pace times in min/km from comparing
     # two trackpoints
@@ -31,10 +23,11 @@ module Stressfactor
           p2 = points[idx+1]
 
           if p2
-            d1 = p1.haversine_distance_from(p2)
-            t1 = (p2.time - p1.time) / 60.0
+            Interval.new(p1, p2)
+            # d1 = p1.haversine_distance_from(p2)
+            # t1 = (p2.time - p1.time) / 60.0
 
-            OpenStruct.new(:time => t1, :distance => d1)
+            # OpenStruct.new(:time => t1, :distance => d1)
           else
             nil
           end

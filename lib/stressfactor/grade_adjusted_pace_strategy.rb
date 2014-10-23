@@ -1,5 +1,5 @@
 module Stressfactor
-  class RawPaceStrategy
+  class GradeAdjustedPaceStrategy
     attr_accessor :intervals, :total_distance
     def initialize(intervals, total_distance)
       @intervals = intervals
