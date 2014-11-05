@@ -22,9 +22,26 @@ the Training Stress Score as detailed here:
 ### Define some terms:
 
 `duration_seconds`: The length of the workout, in seconds
+
 `normalized_graded_pace`: Adjusted pace for the incline/decline.
+
 `intensity_factor`: Ratio of NGP / FTP
+
 `functional_threshold_pace`: Your average pace, "all out" for 1 hour.
+
+## Grade Adjusted Pace
+
+* http://engineering.strava.com/improving-grade-adjusted-pace/
+* http://www.runnersworld.com/races/downhill-all-way
+
+> More than a quarter century ago, British researcher Mervyn Davies
+> conducted treadmill tests that revealed that each 1 percent of upgrade
+> slowed elite runners by about 3.3 percent.
+
+> That’s uphill. Davies also tested downgrades. Not surprisingly, he
+> found that descents don’t give back as much as ascents take away. In
+> fact, they only speed you up by about 55 percent as much as the
+> corresponding upgrades slow you down.
 
 ## Installation
 

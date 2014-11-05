@@ -21,7 +21,15 @@ module Stressfactor
 
     # grade in percent incline/decline
     def grade
+      elevation_change = end_point.elevation - start_point.elevation
+      # Normalize to meters
+      distance_change = distance * 1000
+      radians = Math.atan(elevation_change / distance_change)
+      180 * radians / Math::PI
+    end
 
+    def to_s
+      "i: #{time}s | #{distance * 1000}m | #{grade}%"
     end
   end
 end

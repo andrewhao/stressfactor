@@ -2,7 +2,6 @@
 # run intervals.
 module Stressfactor
   class RawPaceStrategy < PaceStrategy
-
     def calculate
       intervals.inject(0) do |acc, interval|
         weighted_interval = (interval.distance / total_distance) * (interval.time(units: :minutes) / interval.distance)

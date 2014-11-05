@@ -8,8 +8,9 @@ module Stressfactor
       @gpx = gpx
     end
 
-    def calculate(strategy=:raw)
-      RawPaceStrategy.new(point_intervals).calculate
+    def calculate(strategy: :grade_adjusted)
+      klass = strategy == :grade_adjusted ? GradeAdjustedPaceStrategy : RawPaceStrategy
+      klass.new(point_intervals).calculate
     end
 
     private
@@ -24,10 +25,6 @@ module Stressfactor
 
           if p2
             Interval.new(p1, p2)
-            # d1 = p1.haversine_distance_from(p2)
-            # t1 = (p2.time - p1.time) / 60.0
-
-            # OpenStruct.new(:time => t1, :distance => d1)
           else
             nil
           end
@@ -38,7 +35,7 @@ module Stressfactor
 
     # An array of GPX::TrackPoint objects.
     def points
-      @points ||= gpx.tracks.map(&:points).flatten
+      @points ||= gpx.tracks.flat_map(&:points)
     end
   end
 end

@@ -1,3 +1,4 @@
+# Abstract base class for pace strategies.
 module Stressfactor
   class PaceStrategy
     attr_reader :intervals
