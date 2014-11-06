@@ -1,6 +1,7 @@
 require "spec_helper"
 
-describe Stressfactor::GradeAdjustedPaceStrategy do
+describe Stressfactor::RawPaceStrategy do
+  let(:points) { [p1, p2, p3] }
   let(:end_time) { Time.now }
   let(:p1) do
     GPX::TrackPoint.new(
@@ -10,6 +11,7 @@ describe Stressfactor::GradeAdjustedPaceStrategy do
       :time => end_time - 10
     )
   end
+
   let(:p2) do
     GPX::TrackPoint.new(
       :lat => 37.7985583,
@@ -18,6 +20,7 @@ describe Stressfactor::GradeAdjustedPaceStrategy do
       :time => end_time - 3
     )
   end
+
   let(:p3) do
     GPX::TrackPoint.new(
       :lat => 37.7986548,
@@ -28,19 +31,17 @@ describe Stressfactor::GradeAdjustedPaceStrategy do
   end
 
   let(:intervals) do
-    [interval]
+    [Stressfactor::Interval.new(p1, p2),
+     Stressfactor::Interval.new(p2, p3)]
   end
-
-  let(:interval) { Stressfactor::Interval.new(p1, p2) }
 
   subject { described_class.new(intervals) }
 
-  describe ".calculate_for_interval" do
-    subject { described_class.calculate_for_interval(interval) }
-
-    it "compensates for the negative coefficient of 3.3% for every 1% incline" do
-      expected_pace = 18.100632981302162
-      expect(subject).to eq expected_pace
+  describe "#calculate" do
+    it "returns the standard (raw) pace without elevation data in minutes/km" do
+      pace = subject.calculate
+      expected_pace = 9.643387311498394
+      expect(pace).to eq(expected_pace)
     end
   end
 end

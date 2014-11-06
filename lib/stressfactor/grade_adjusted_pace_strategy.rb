@@ -2,17 +2,27 @@
 # blog: http://engineering.strava.com/improving-grade-adjusted-pace/
 module Stressfactor
   class GradeAdjustedPaceStrategy < PaceStrategy
-    def initialize(intervals)
-      @intervals = intervals
+    def self.calculate_for_interval(interval)
+      interval.time(units: :minutes) / interval.distance
     end
 
-    def calculate
+    def calculate(units: :meters)
       intervals.inject(0) do |acc, interval|
-        weighted_interval = (interval.distance / total_distance) * \
-          grade_coefficient(interval) * \
-          (interval.time(units: :minutes) / interval.distance)
+        weighted_interval = (interval.distance / total_distance) * self.class.calculate_for_interval(interval)
         acc + weighted_interval
       end
+    end
+
+    private
+
+    def self.calculate_for_interval(interval)
+      observed_pace = interval.time(units: :minutes) / interval.distance
+      coefficient_per_grade_point = 0.033
+      grade = interval.grade
+
+      puts interval
+
+      observed_pace / (1 + (coefficient_per_grade_point * grade))
     end
 
     # The effect of the incline/grade on performance.
