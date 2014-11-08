@@ -47,7 +47,7 @@ describe Stressfactor::PaceCalculator do
 
     context "with grade adjusted pace" do
       it "returns the GAP using the GAP calculator" do
-        expected_gap_pace = 9.251827552862885
+        expected_gap_pace = 4.250092836947296
         pace = subject.calculate(strategy: :grade_adjusted, units: :metric)
         expect(pace).to eq expected_gap_pace
       end
@@ -61,7 +61,7 @@ describe Stressfactor::PaceCalculator do
       end
 
       it "returns GAP pace in min/mi" do
-        expected_pace = 14.889377767650702
+        expected_pace = 6.839863522673726
         pace = subject.calculate(strategy: :grade_adjusted, units: :english)
         expect(pace).to eq expected_pace
       end
