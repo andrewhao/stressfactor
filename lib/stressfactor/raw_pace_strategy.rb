@@ -1,16 +1,14 @@
+# Take the exact average over all paces over the set of
+# run intervals.
 module Stressfactor
-  class RawPaceStrategy
-    attr_accessor :intervals, :total_distance
-    def initialize(intervals, total_distance)
-      @intervals = intervals
-      @total_distance = total_distance
+  class RawPaceStrategy < PaceStrategy
+
+    def self.calculate_for_interval(interval)
+      interval.time(units: :minutes) / interval.distance
     end
 
     def calculate
-      intervals.inject(0) do |acc, interval|
-        weighted_interval = (interval.distance / total_distance) * (interval.time / interval.distance)
-        acc + weighted_interval
-      end
+      AveragePaceAccumulator.new(intervals).average_pace(strategy: :raw)
     end
   end
 end
