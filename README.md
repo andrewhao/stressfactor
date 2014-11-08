@@ -59,7 +59,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    $ ./bin/stressfactor analyze PATH_TO_GPX [--units=metric|english]
 
 ## Contributing
 

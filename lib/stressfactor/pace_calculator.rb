@@ -8,9 +8,10 @@ module Stressfactor
       @gpx = gpx
     end
 
-    def calculate(strategy: :grade_adjusted)
-      klass = strategy == :grade_adjusted ? GradeAdjustedPaceStrategy : RawPaceStrategy
-      klass.new(point_intervals).calculate
+    def calculate(strategy: :grade_adjusted, units: :metric)
+      pace = AveragePaceAccumulator.new(point_intervals).average_pace(strategy: strategy)
+      pace *= (1/0.621371) if units == :english
+      pace
     end
 
     private

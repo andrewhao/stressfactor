@@ -42,5 +42,14 @@ describe Stressfactor::GradeAdjustedPaceStrategy do
       expected_pace = 18.100632981302162
       expect(subject).to eq expected_pace
     end
+
+    context "for declines" do
+      let(:interval) { Stressfactor::Interval.new(p2, p3) }
+
+      it "compensates for the positive coefficient of 1.815% for every 1% decline" do
+        expected_pace = 2.459421791214623
+        expect(subject).to eq expected_pace
+      end
+    end
   end
 end

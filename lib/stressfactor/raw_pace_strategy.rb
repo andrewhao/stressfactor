@@ -8,10 +8,7 @@ module Stressfactor
     end
 
     def calculate
-      intervals.inject(0) do |acc, interval|
-        weighted_interval = (interval.distance / total_distance) * self.class.calculate_for_interval(interval)
-        acc + weighted_interval
-      end
+      AveragePaceAccumulator.new(intervals).average_pace(strategy: :raw)
     end
   end
 end

@@ -5,11 +5,18 @@ require_relative '../lib/stressfactor'
 
 class CLI < Thor
   desc "analyze PATH", "Run analysis on a GPX."
+  options units: :string
   def analyze(path)
+    units = options[:units] || :metric
+    units = units.to_sym
+
+    units_help = units == :metric ? "min/km" : "min/mi"
+    puts "Units are #{units}, which are in #{units_help}"
+
     file = GPX::GPXFile.new(:gpx_file => path)
     pc = Stressfactor::PaceCalculator.new(file)
-    puts "Grade Adjusted Pace: #{pc.calculate(strategy: :grade_adjusted)}"
-    puts "Raw Pace: #{pc.calculate(strategy: :raw)}"
+    puts "Grade Adjusted Pace: #{pc.calculate(strategy: :grade_adjusted, units: units)}"
+    puts "Raw Pace: #{pc.calculate(strategy: :raw, units: units)}"
   end
 end
 
