@@ -50,4 +50,10 @@ describe Stressfactor::GpxLoader do
       expect(subject.intervals).to be_all{|i| i.is_a?(Stressfactor::Interval)}
     end
   end
+
+  describe "#total_time" do
+    it "returns correct elapsed time" do
+      expect(subject.total_time).to eq 10
+    end
+  end
 end

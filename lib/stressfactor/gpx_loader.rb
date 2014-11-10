@@ -8,7 +8,9 @@ module Stressfactor
 
     # units: seconds
     def total_time
-      30000
+      intervals.inject(0) do |acc, i|
+        acc + i.time
+      end
     end
 
     # An array of instantaneous pace times in min/km from comparing
