@@ -13,10 +13,14 @@ class CLI < Thor
     units_help = units == :metric ? "min/km" : "min/mi"
     puts "Units are #{units}, which are in #{units_help}"
 
-    file = GPX::GPXFile.new(:gpx_file => path)
-    pc = Stressfactor::PaceCalculator.new(file)
+    loader = Stressfactor::GpxLoader.new(path)
+    pc = Stressfactor::PaceCalculator.new(loader)
     puts "Grade Adjusted Pace: #{pc.calculate(strategy: :grade_adjusted, units: units)}"
     puts "Raw Pace: #{pc.calculate(strategy: :raw, units: units)}"
+
+    pace = 3.8
+    stress = Stressfactor::StressCalculator.new(threshold_pace: pace, loader: loader)
+    puts "Training stress score: #{stress.calculate}"
   end
 end
 
