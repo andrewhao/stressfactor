@@ -1,5 +1,7 @@
 require "gpx"
 require "stressfactor/interval"
+require "stressfactor/gpx_loader"
+require "stressfactor/stress_calculator"
 require "stressfactor/average_pace_accumulator"
 require "stressfactor/pace_calculator"
 require "stressfactor/pace_strategy"

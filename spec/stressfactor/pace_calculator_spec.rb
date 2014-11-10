@@ -1,8 +1,11 @@
 require "spec_helper"
 
 describe Stressfactor::PaceCalculator do
-  let(:gpx) { GPX::GPXFile.new }
-  let(:points) { [p1, p2, p3] }
+  let(:gpx_loader) { double("loader", intervals: intervals) }
+  let(:intervals) do
+    [Stressfactor::Interval.new(p1, p2),
+     Stressfactor::Interval.new(p2, p3)]
+  end
   let(:end_time) { Time.now }
   let(:p1) do
     GPX::TrackPoint.new(
@@ -31,12 +34,7 @@ describe Stressfactor::PaceCalculator do
     )
   end
 
-  subject { described_class.new(gpx) }
-
-  before do
-    stub_track = double(:track, :points => points)
-    allow(gpx).to receive(:tracks).and_return([stub_track])
-  end
+  subject { described_class.new(gpx_loader) }
 
   describe "#calculate" do
     it "returns the standard (raw) pace without elevation data in minutes/km" do
