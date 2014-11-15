@@ -8,8 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Stressfactor::VERSION
   spec.authors       = ["Andrew Hao"]
   spec.email         = ["andrewhao@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{GPX library to generate training stress scores from GPX files.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
